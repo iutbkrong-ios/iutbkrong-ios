@@ -1,0 +1,2138 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#03030a">
+
+<title>Y UT BKRONG — VIP BIO</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Orbitron:wght@500;700;800&display=swap');
+
+:root{
+    --bg:#03030a;
+    --purple:#8b5cf6;
+    --cyan:#22d3ee;
+    --pink:#f472b6;
+}
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    min-height:100vh;
+    background:#03030a;
+    color:white;
+    font-family:Inter,sans-serif;
+    overflow-x:hidden;
+}
+
+.lock{
+    overflow:hidden;
+}
+
+#space,
+#snowCanvas{
+    position:fixed;
+    inset:0;
+    width:100%;
+    height:100%;
+    pointer-events:none;
+}
+
+#space{
+    z-index:-10;
+}
+
+#snowCanvas{
+    z-index:30;
+}
+
+.aurora{
+    position:fixed;
+    inset:-35%;
+    z-index:-9;
+    pointer-events:none;
+    filter:blur(75px);
+    opacity:.7;
+
+    background:
+        radial-gradient(circle at 20% 25%,#7c3aed55,transparent 23%),
+        radial-gradient(circle at 80% 20%,#06b6d455,transparent 24%),
+        radial-gradient(circle at 55% 80%,#ec489955,transparent 22%);
+
+    animation:aurora 15s ease-in-out infinite alternate;
+}
+
+@keyframes aurora{
+    to{
+        transform:translate(5%,3%) rotate(7deg) scale(1.12);
+    }
+}
+
+.grid{
+    position:fixed;
+    inset:0;
+    z-index:-8;
+    opacity:.08;
+
+    background-image:
+        linear-gradient(#fff 1px,transparent 1px),
+        linear-gradient(90deg,#fff 1px,transparent 1px);
+
+    background-size:48px 48px;
+}
+
+.vignette{
+    position:fixed;
+    inset:0;
+    z-index:20;
+    pointer-events:none;
+
+    box-shadow:
+        inset 0 0 180px #000,
+        inset 0 0 60px #0008;
+}
+
+.cursorGlow{
+    position:fixed;
+    width:220px;
+    height:220px;
+    border-radius:50%;
+    pointer-events:none;
+    z-index:25;
+
+    background:
+        radial-gradient(
+            circle,
+            #8b5cf622,
+            transparent 68%
+        );
+
+    transform:translate(-50%,-50%);
+}
+
+
+/* ================= INTRO ================= */
+
+#intro{
+    position:fixed;
+    inset:0;
+    z-index:100;
+
+    background:#020208;
+
+    display:grid;
+    place-items:center;
+
+    transition:1s cubic-bezier(.2,.8,.2,1);
+}
+
+#intro.hide{
+    opacity:0;
+    pointer-events:none;
+    transform:scale(1.04);
+}
+
+.introInner{
+    text-align:center;
+    width:min(520px,90%);
+}
+
+.introLogo{
+    font:
+        800 clamp(30px,8vw,60px)
+        Orbitron;
+
+    letter-spacing:6px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #fff,
+            #a78bfa,
+            #22d3ee,
+            #fff
+        );
+
+    background-size:300%;
+
+    -webkit-background-clip:text;
+    background-clip:text;
+
+    color:transparent;
+
+    animation:gradient 4s linear infinite;
+}
+
+@keyframes gradient{
+    to{
+        background-position:300%;
+    }
+}
+
+.introSub{
+    margin:15px 0 28px;
+    color:#7d8494;
+    letter-spacing:4px;
+    font-size:11px;
+}
+
+.enter{
+    border:1px solid #ffffff25;
+    background:#ffffff09;
+    color:white;
+
+    border-radius:999px;
+    padding:15px 28px;
+
+    cursor:pointer;
+    font-weight:700;
+    letter-spacing:1px;
+
+    backdrop-filter:blur(20px);
+
+    box-shadow:
+        0 0 40px #8b5cf633;
+
+    transition:.3s;
+}
+
+.enter:hover{
+    transform:translateY(-3px) scale(1.04);
+
+    border-color:#a78bfa88;
+
+    box-shadow:
+        0 0 60px #8b5cf655;
+}
+
+.loader{
+    width:180px;
+    height:2px;
+
+    background:#ffffff12;
+
+    margin:25px auto 0;
+
+    overflow:hidden;
+    border-radius:10px;
+}
+
+.loader i{
+    display:block;
+
+    width:0;
+    height:100%;
+
+    background:
+        linear-gradient(
+            90deg,
+            #8b5cf6,
+            #22d3ee
+        );
+
+    animation:loading 2.2s forwards;
+}
+
+@keyframes loading{
+    to{
+        width:100%;
+    }
+}
+
+
+/* ================= TOP BAR ================= */
+
+.topbar{
+    position:fixed;
+
+    top:16px;
+    left:50%;
+
+    transform:translateX(-50%);
+
+    z-index:40;
+
+    width:min(900px,92%);
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    padding:10px 12px 10px 18px;
+
+    border:1px solid #ffffff1c;
+
+    background:#ffffff09;
+
+    backdrop-filter:blur(20px);
+
+    border-radius:999px;
+}
+
+.brand{
+    font:
+        700 12px Orbitron;
+
+    letter-spacing:2px;
+
+    color:#d7ccff;
+}
+
+.actions{
+    display:flex;
+    gap:7px;
+}
+
+.tool{
+    width:37px;
+    height:37px;
+
+    border:1px solid #ffffff15;
+
+    background:#ffffff08;
+
+    color:white;
+
+    border-radius:50%;
+
+    cursor:pointer;
+
+    transition:.25s;
+}
+
+.tool:hover{
+    transform:translateY(-2px);
+
+    background:#8b5cf622;
+
+    border-color:#a78bfa66;
+}
+
+
+/* ================= MAIN ================= */
+
+.container{
+    width:min(900px,92%);
+    margin:auto;
+
+    padding:
+        110px 0 70px;
+}
+
+
+/* ================= HERO ================= */
+
+.hero{
+    min-height:calc(100vh - 40px);
+
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+
+    text-align:center;
+}
+
+
+/* ================= U LOGO ================= */
+
+.logoWrap{
+    position:relative;
+
+    width:190px;
+    height:190px;
+
+    margin:
+        0 auto 35px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.logoRing{
+    position:absolute;
+
+    inset:-12px;
+
+    border-radius:50%;
+
+    background:
+        conic-gradient(
+            from 0deg,
+            #8b5cf6,
+            #22d3ee,
+            #f472b6,
+            #8b5cf6
+        );
+
+    animation:
+        spin 4s linear infinite;
+
+    box-shadow:
+        0 0 50px #8b5cf666,
+        0 0 100px #22d3ee22;
+}
+
+.logoRing::after{
+    content:"";
+
+    position:absolute;
+
+    inset:5px;
+
+    border-radius:50%;
+
+    background:#03030a;
+}
+
+.uLogo{
+    position:relative;
+
+    width:160px;
+    height:160px;
+
+    border-radius:50%;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font:
+        800 92px Orbitron;
+
+    color:white;
+
+    background:
+        radial-gradient(
+            circle at 50% 35%,
+            #25154f,
+            #070711 70%
+        );
+
+    border:
+        5px solid #080812;
+
+    text-shadow:
+        0 0 10px #fff,
+        0 0 25px #8b5cf6,
+        0 0 50px #22d3ee,
+        0 0 80px #8b5cf6;
+
+    box-shadow:
+        inset 0 0 30px #8b5cf633,
+        0 0 40px #8b5cf688,
+        0 0 90px #22d3ee22;
+
+    z-index:2;
+
+    animation:
+        logoPulse 3s ease-in-out infinite;
+}
+
+.uLogo::before{
+    content:"";
+
+    position:absolute;
+
+    width:45px;
+    height:45px;
+
+    top:20px;
+    right:25px;
+
+    border-radius:50%;
+
+    background:#fff;
+
+    opacity:.08;
+
+    filter:blur(10px);
+}
+
+@keyframes logoPulse{
+
+    0%,100%{
+        transform:scale(1);
+    }
+
+    50%{
+        transform:scale(1.045);
+    }
+}
+
+@keyframes spin{
+    to{
+        transform:rotate(360deg);
+    }
+}
+
+
+/* ================= TEXT ================= */
+
+.status{
+    display:inline-flex;
+
+    align-items:center;
+    gap:7px;
+
+    margin:
+        0 auto 18px;
+
+    padding:
+        7px 13px;
+
+    border:
+        1px solid #ffffff12;
+
+    background:#ffffff08;
+
+    border-radius:999px;
+
+    color:#aab0bd;
+
+    font-size:11px;
+}
+
+.status b{
+    width:7px;
+    height:7px;
+
+    background:#34d399;
+
+    border-radius:50%;
+
+    box-shadow:
+        0 0 10px #34d399;
+}
+
+.name{
+    font:
+        800 clamp(32px,8vw,65px)
+        Orbitron;
+
+    letter-spacing:4px;
+
+    line-height:1.05;
+
+    background:
+        linear-gradient(
+            90deg,
+            #fff,
+            #c4b5fd,
+            #67e8f9,
+            #fff
+        );
+
+    background-size:300%;
+
+    -webkit-background-clip:text;
+    background-clip:text;
+
+    color:transparent;
+
+    animation:
+        gradient 5s linear infinite;
+}
+
+.username{
+    margin-top:12px;
+
+    color:#777f91;
+
+    font-size:13px;
+}
+
+.typing{
+    min-height:28px;
+
+    margin:
+        22px auto 12px;
+
+    font-size:17px;
+}
+
+.typing span{
+    color:#a78bfa;
+}
+
+.description{
+    max-width:650px;
+
+    margin:auto;
+
+    color:#9ca3af;
+
+    line-height:1.8;
+
+    font-size:14px;
+}
+
+
+/* ================= SOCIAL ================= */
+
+.socials{
+    display:flex;
+    flex-wrap:wrap;
+
+    justify-content:center;
+
+    gap:10px;
+
+    margin-top:25px;
+}
+
+.social{
+    text-decoration:none;
+
+    color:white;
+
+    padding:
+        13px 18px;
+
+    border:
+        1px solid #ffffff12;
+
+    background:#ffffff08;
+
+    border-radius:15px;
+
+    backdrop-filter:blur(15px);
+
+    transition:.35s;
+}
+
+.social:hover{
+    transform:translateY(-5px);
+
+    border-color:#a78bfa66;
+
+    box-shadow:
+        0 15px 45px #8b5cf633;
+}
+
+
+/* ================= SCROLL ================= */
+
+.scroll{
+    margin:
+        35px auto 0;
+
+    color:#626979;
+
+    font-size:10px;
+
+    letter-spacing:3px;
+}
+
+.scroll i{
+    display:block;
+
+    width:1px;
+    height:35px;
+
+    background:
+        linear-gradient(
+            #8b5cf6,
+            transparent
+        );
+
+    margin:
+        9px auto 0;
+}
+
+
+/* ================= CARDS ================= */
+
+.card{
+    position:relative;
+
+    margin-top:20px;
+
+    padding:24px;
+
+    border:
+        1px solid #ffffff1c;
+
+    border-radius:26px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ffffff0d,
+            #ffffff03
+        );
+
+    backdrop-filter:blur(22px);
+
+    box-shadow:
+        inset 0 1px #fff2,
+        0 25px 80px #0005;
+
+    overflow:hidden;
+
+    transition:.25s;
+
+    transform-style:preserve-3d;
+}
+
+.card::before{
+    content:"";
+
+    position:absolute;
+
+    width:260px;
+    height:260px;
+
+    border-radius:50%;
+
+    background:#8b5cf61a;
+
+    filter:blur(75px);
+
+    right:-120px;
+    top:-120px;
+
+    pointer-events:none;
+}
+
+.title{
+    font:
+        700 12px Orbitron;
+
+    letter-spacing:2px;
+
+    color:#b8a4ff;
+
+    margin-bottom:18px;
+}
+
+
+/* ================= LINKS ================= */
+
+.link{
+    display:flex;
+
+    align-items:center;
+    justify-content:space-between;
+
+    text-decoration:none;
+
+    color:white;
+
+    padding:16px;
+
+    margin:9px 0;
+
+    border-radius:16px;
+
+    background:#ffffff07;
+
+    border:
+        1px solid #ffffff0d;
+
+    transition:.3s;
+}
+
+.link:hover{
+    transform:translateX(7px);
+
+    background:#8b5cf614;
+
+    border-color:#a78bfa55;
+}
+
+.left{
+    display:flex;
+
+    align-items:center;
+
+    gap:13px;
+}
+
+.icon{
+    width:43px;
+    height:43px;
+
+    display:grid;
+    place-items:center;
+
+    border-radius:13px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #8b5cf633,
+            #22d3ee22
+        );
+
+    font-size:18px;
+}
+
+.link small{
+    display:block;
+
+    color:#727a89;
+
+    margin-top:4px;
+
+    font-size:11px;
+}
+
+
+/* ================= STATS ================= */
+
+.stats{
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:12px;
+}
+
+.stat{
+    text-align:center;
+
+    padding:
+        21px 8px;
+
+    border-radius:18px;
+
+    background:#ffffff07;
+
+    border:
+        1px solid #ffffff0c;
+}
+
+.stat strong{
+    display:block;
+
+    font:
+        700 25px Orbitron;
+}
+
+.stat span{
+    font-size:11px;
+
+    color:#727a89;
+}
+
+
+/* ================= QUOTE ================= */
+
+.quote{
+    text-align:center;
+
+    padding:
+        42px 20px;
+}
+
+.quote p{
+    font-size:20px;
+
+    line-height:1.75;
+
+    color:#e5e7eb;
+
+    font-style:italic;
+}
+
+.quote small{
+    display:block;
+
+    color:#9b7cff;
+
+    margin-top:14px;
+}
+
+.quote2{
+    text-align:center;
+
+    color:#808898;
+
+    font-size:12px;
+
+    line-height:1.8;
+}
+
+
+/* ================= FOOTER ================= */
+
+footer{
+    text-align:center;
+
+    margin:
+        45px 0 10px;
+
+    color:#555d6c;
+
+    font-size:11px;
+}
+
+footer b{
+    color:#9b7cff;
+}
+
+
+/* ================= REVEAL ================= */
+
+.reveal{
+    opacity:0;
+
+    transform:
+        translateY(30px);
+
+    transition:
+        1s cubic-bezier(.2,.8,.2,1);
+}
+
+.reveal.show{
+    opacity:1;
+    transform:none;
+}
+
+
+/* ================= TOAST ================= */
+
+.toast{
+    position:fixed;
+
+    left:50%;
+    bottom:25px;
+
+    transform:
+        translate(-50%,20px);
+
+    opacity:0;
+
+    z-index:80;
+
+    padding:
+        11px 15px;
+
+    border:
+        1px solid #ffffff18;
+
+    background:#0b0b14dd;
+
+    border-radius:999px;
+
+    font-size:11px;
+
+    backdrop-filter:blur(15px);
+
+    transition:.35s;
+}
+
+.toast.show{
+    opacity:1;
+
+    transform:
+        translate(-50%,0);
+}
+
+
+/* ================= MOBILE ================= */
+
+@media(max-width:650px){
+
+    .topbar{
+        top:10px;
+    }
+
+    .brand{
+        font-size:10px;
+    }
+
+    .tool{
+        width:34px;
+        height:34px;
+    }
+
+    .container{
+        padding-top:90px;
+    }
+
+    .logoWrap{
+        width:165px;
+        height:165px;
+    }
+
+    .uLogo{
+        width:140px;
+        height:140px;
+        font-size:78px;
+    }
+
+    .name{
+        font-size:34px;
+        letter-spacing:2px;
+    }
+
+    .stats strong{
+        font-size:20px;
+    }
+}
+</style>
+</head>
+
+
+<body class="lock">
+
+<canvas id="space"></canvas>
+<canvas id="snowCanvas"></canvas>
+
+<div class="aurora"></div>
+<div class="grid"></div>
+<div class="vignette"></div>
+<div class="cursorGlow"></div>
+
+
+<!-- ================= INTRO ================= -->
+
+<div id="intro">
+
+    <div class="introInner">
+
+        <div class="introLogo">
+            Y UT BKRONG
+        </div>
+
+        <div class="introSub">
+            ENTER MY WORLD · ULTRA BIO
+        </div>
+
+        <button
+            class="enter"
+            id="enter"
+            type="button">
+
+            ✦ ENTER MY WORLD
+
+        </button>
+
+        <div class="loader">
+            <i></i>
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ================= TOP BAR ================= -->
+
+<nav class="topbar">
+
+    <div class="brand">
+        Y UT BKRONG // 2604
+    </div>
+
+    <div class="actions">
+
+        <button
+            class="tool"
+            id="snowBtn"
+            type="button">
+
+            ❄
+
+        </button>
+
+        <button
+            class="tool"
+            id="topBtn"
+            type="button">
+
+            ↑
+
+        </button>
+
+    </div>
+
+</nav>
+
+
+<main class="container">
+
+
+<!-- ================= HERO ================= -->
+
+<section class="hero reveal">
+
+
+    <div class="logoWrap">
+
+        <div class="logoRing"></div>
+
+        <div class="uLogo">
+            U
+        </div>
+
+    </div>
+
+
+    <div class="status">
+
+        <b></b>
+
+        ONLINE · IN MY WORLD
+
+    </div>
+
+
+    <h1 class="name">
+        Y UT BKRONG
+    </h1>
+
+
+    <div class="username">
+        @hawoungji · Viet Nam 🇻🇳
+    </div>
+
+
+    <div class="typing">
+
+        <span id="typing"></span>
+
+    </div>
+
+
+    <p class="description">
+
+        MANG ĐẾN TRẢI NGHIỆM TỐT NHẤT.<br>
+
+        MAP LIÊN QUÂN — MENU FF - AIM - ĐỊNH VỊ
+        LIÊN HỆ PHÍA DƯỚI MUA HÀNG NHÉ.
+
+    </p>
+
+
+    <!-- ================= SOCIAL LINKS ================= -->
+
+    <div class="socials">
+
+
+        <!-- FACEBOOK -->
+
+        <a
+            class="social"
+            href="https://www.facebook.com/share/1LzaCShcLy/?mibextid=wwXIfr"
+            target="_blank"
+            rel="noopener noreferrer">
+
+            ✦ Facebook
+
+        </a>
+
+
+        <!-- TIKTOK -->
+
+        <a
+            class="social"
+            href="https://www.tiktok.com/@toisongchosok"
+            target="_blank"
+            rel="noopener noreferrer">
+
+            ♪ TikTok
+
+        </a>
+
+
+        <!-- ZALO -->
+
+        <a
+            class="social"
+            href="https://zalo.me/0338870287"
+            target="_blank"
+            rel="noopener noreferrer">
+
+            ◎ Zalo
+
+        </a>
+
+
+        <!-- TELEGRAM -->
+
+        <a
+            class="social"
+            href="https://t.me/tfzjuzuz"
+            target="_blank"
+            rel="noopener noreferrer">
+
+            ✈ Telegram
+
+        </a>
+
+
+    </div>
+
+
+    <div class="scroll">
+
+        SCROLL TO EXPLORE
+
+        <i></i>
+
+    </div>
+
+</section>
+
+
+<!-- ================= MY WORLD ================= -->
+
+<section class="card reveal">
+
+    <div class="title">
+        ✦ MY WORLD
+    </div>
+
+
+    <!-- FACEBOOK -->
+
+    <a
+        class="link"
+        href="https://www.facebook.com/share/1LzaCShcLy/?mibextid=wwXIfr"
+        target="_blank"
+        rel="noopener noreferrer">
+
+        <div class="left">
+
+            <div class="icon">
+                ✦
+            </div>
+
+            <div>
+
+                <strong>
+                    Facebook
+                </strong>
+
+                <small>
+                    Follow my moments
+                </small>
+
+            </div>
+
+        </div>
+
+        <span>↗</span>
+
+    </a>
+
+
+    <!-- TIKTOK -->
+
+    <a
+        class="link"
+        href="https://www.tiktok.com/@toisongchosok"
+        target="_blank"
+        rel="noopener noreferrer">
+
+        <div class="left">
+
+            <div class="icon">
+                ♪
+            </div>
+
+            <div>
+
+                <strong>
+                    TikTok
+                </strong>
+
+                <small>
+                    Watch my videos
+                </small>
+
+            </div>
+
+        </div>
+
+        <span>↗</span>
+
+    </a>
+
+
+    <!-- ZALO -->
+
+    <a
+        class="link"
+        href="https://zalo.me/0338870287"
+        target="_blank"
+        rel="noopener noreferrer">
+
+        <div class="left">
+
+            <div class="icon">
+                💬
+            </div>
+
+            <div>
+
+                <strong>
+                    Zalo
+                </strong>
+
+                <small>
+                    Contact me on Zalo
+                </small>
+
+            </div>
+
+        </div>
+
+        <span>↗</span>
+
+    </a>
+
+
+    <!-- TELEGRAM -->
+
+    <a
+        class="link"
+        href="https://t.me/tfzjuzuz"
+        target="_blank"
+        rel="noopener noreferrer">
+
+        <div class="left">
+
+            <div class="icon">
+                ✈
+            </div>
+
+            <div>
+
+                <strong>
+                    Telegram
+                </strong>
+
+                <small>
+                    Contact me on Telegram
+                </small>
+
+            </div>
+
+        </div>
+
+        <span>↗</span>
+
+    </a>
+
+</section>
+
+
+<!-- ================= DETAILS ================= -->
+
+<section class="card reveal">
+
+    <div class="title">
+        ◈ LITTLE DETAILS
+    </div>
+
+
+    <div class="stats">
+
+        <div class="stat">
+
+            <strong>
+                ∞
+            </strong>
+
+            <span>
+                Dreams
+            </span>
+
+        </div>
+
+
+        <div class="stat">
+
+            <strong>
+                24/7
+            </strong>
+
+            <span>
+                Online
+            </span>
+
+        </div>
+
+
+        <div class="stat">
+
+            <strong>
+                100%
+            </strong>
+
+            <span>
+                Myself
+            </span>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= QUOTE ================= -->
+
+<section class="card quote reveal">
+
+    <p>
+
+        “Không cần phải giống ai cả.<br>
+
+        Chỉ cần trở thành phiên bản
+        mà chính mình thích.”
+
+    </p>
+
+
+    <small>
+        — Y UT BKRONG -
+    </small>
+
+</section>
+
+
+<section class="card reveal">
+
+    <div class="quote2">
+
+        Sao chép dán lên trình duyệt nếu không hiện hoặc bị lỗi nhé.
+
+        <br><br>
+
+        Enjoy the moment.
+
+    </div>
+
+</section>
+
+
+<footer>
+
+    CRAFTED WITH
+
+    <b>✦</b>
+
+    · Y UT BKRONG ·
+
+    <span id="year"></span>
+
+</footer>
+
+</main>
+
+
+<div
+    class="toast"
+    id="toast">
+</div>
+
+
+<script>
+
+/* ================= INTRO ================= */
+
+const intro =
+document.getElementById("intro");
+
+
+document
+.getElementById("enter")
+.addEventListener(
+    "click",
+    () => {
+
+        document.body
+        .classList
+        .remove("lock");
+
+        intro
+        .classList
+        .add("hide");
+
+        setTimeout(
+            () => intro.remove(),
+            1100
+        );
+
+    }
+);
+
+
+/* ================= STARS ================= */
+
+const space =
+document.getElementById("space");
+
+const ctx =
+space.getContext("2d");
+
+let stars=[];
+
+
+function resize(){
+
+    space.width =
+        innerWidth *
+        devicePixelRatio;
+
+    space.height =
+        innerHeight *
+        devicePixelRatio;
+
+    ctx.setTransform(
+        devicePixelRatio,
+        0,
+        0,
+        devicePixelRatio,
+        0,
+        0
+    );
+
+
+    stars =
+        Array.from(
+            {
+                length:
+                    Math.min(
+                        180,
+                        Math.floor(
+                            innerWidth / 5
+                        )
+                    )
+            },
+
+            () => ({
+
+                x:
+                    Math.random()
+                    * innerWidth,
+
+                y:
+                    Math.random()
+                    * innerHeight,
+
+                r:
+                    Math.random()
+                    * 1.5 + .2,
+
+                s:
+                    Math.random()
+                    * .45 + .08,
+
+                a:
+                    Math.random()
+
+            })
+        );
+
+}
+
+
+addEventListener(
+    "resize",
+    resize
+);
+
+resize();
+
+
+function starLoop(){
+
+    ctx.clearRect(
+        0,
+        0,
+        innerWidth,
+        innerHeight
+    );
+
+
+    stars.forEach(
+        s => {
+
+            s.y += s.s;
+
+
+            if(
+                s.y >
+                innerHeight
+            ){
+
+                s.y=-2;
+
+                s.x =
+                    Math.random()
+                    * innerWidth;
+
+            }
+
+
+            ctx.globalAlpha =
+                .2+s.a*.6;
+
+            ctx.fillStyle="#fff";
+
+            ctx.beginPath();
+
+            ctx.arc(
+                s.x,
+                s.y,
+                s.r,
+                0,
+                Math.PI*2
+            );
+
+            ctx.fill();
+
+        }
+    );
+
+
+    requestAnimationFrame(
+        starLoop
+    );
+
+}
+
+starLoop();
+
+
+/* ================= SNOW ================= */
+
+const snowCanvas =
+document.getElementById(
+    "snowCanvas"
+);
+
+const snowCtx =
+snowCanvas.getContext("2d");
+
+let flakes=[];
+let snowOn=false;
+
+
+function resizeSnow(){
+
+    snowCanvas.width =
+        innerWidth *
+        devicePixelRatio;
+
+    snowCanvas.height =
+        innerHeight *
+        devicePixelRatio;
+
+
+    snowCtx.setTransform(
+        devicePixelRatio,
+        0,
+        0,
+        devicePixelRatio,
+        0,
+        0
+    );
+
+}
+
+
+addEventListener(
+    "resize",
+    resizeSnow
+);
+
+resizeSnow();
+
+
+function snowLoop(){
+
+    snowCtx.clearRect(
+        0,
+        0,
+        innerWidth,
+        innerHeight
+    );
+
+
+    if(snowOn){
+
+        if(
+            flakes.length<110
+        ){
+
+            flakes.push({
+
+                x:
+                    Math.random()
+                    * innerWidth,
+
+                y:-5,
+
+                r:
+                    Math.random()
+                    *2+1,
+
+                v:
+                    Math.random()
+                    *1.3+.5,
+
+                d:
+                    (Math.random()-.5)*.6
+
+            });
+
+        }
+
+
+        flakes.forEach(
+            f => {
+
+                f.y+=f.v;
+                f.x+=f.d;
+
+                snowCtx.globalAlpha=.55;
+                snowCtx.fillStyle="#fff";
+
+                snowCtx.beginPath();
+
+                snowCtx.arc(
+                    f.x,
+                    f.y,
+                    f.r,
+                    0,
+                    Math.PI*2
+                );
+
+                snowCtx.fill();
+
+            }
+        );
+
+
+        flakes=
+            flakes.filter(
+                f =>
+                    f.y <
+                    innerHeight+10
+            );
+
+    }
+
+
+    requestAnimationFrame(
+        snowLoop
+    );
+
+}
+
+snowLoop();
+
+
+document
+.getElementById("snowBtn")
+.onclick=()=>{
+
+    snowOn=!snowOn;
+
+    showToast(
+        snowOn
+        ?
+        "❄ Snow mode ON"
+        :
+        "Snow mode OFF"
+    );
+
+};
+
+
+/* ================= CURSOR ================= */
+
+const glow =
+document.querySelector(
+    ".cursorGlow"
+);
+
+
+addEventListener(
+    "pointermove",
+    e => {
+
+        glow.animate(
+
+            {
+
+                left:
+                    e.clientX+"px",
+
+                top:
+                    e.clientY+"px"
+
+            },
+
+            {
+
+                duration:350,
+
+                fill:"forwards"
+
+            }
+
+        );
+
+    }
+);
+
+
+/* ================= TYPING ================= */
+
+const texts=[
+
+    "Welcome to my world ✦",
+
+    "Living my own story.",
+
+    "Dream • Create • Repeat.",
+
+    "Stay mysterious.",
+
+    "Enjoy every moment."
+
+];
+
+
+let ti=0;
+let ci=0;
+let del=false;
+
+
+const typing =
+document.getElementById(
+    "typing"
+);
+
+
+function typeText(){
+
+    let text=texts[ti];
+
+
+    if(!del){
+
+        typing.textContent=
+            text.slice(
+                0,
+                ci++
+            );
+
+
+        if(
+            ci>text.length
+        ){
+
+            del=true;
+
+            return setTimeout(
+                typeText,
+                1400
+            );
+
+        }
+
+    }
+
+    else{
+
+        typing.textContent=
+            text.slice(
+                0,
+                ci--
+            );
+
+
+        if(ci<0){
+
+            del=false;
+
+            ti=
+                (ti+1)
+                %
+                texts.length;
+
+            ci=0;
+
+        }
+
+    }
+
+
+    setTimeout(
+        typeText,
+        del?38:75
+    );
+
+}
+
+
+typeText();
+
+
+/* ================= REVEAL ================= */
+
+const observer=
+new IntersectionObserver(
+
+    entries=>{
+
+        entries.forEach(
+            entry=>{
+
+                if(
+                    entry.isIntersecting
+                ){
+
+                    entry.target
+                    .classList
+                    .add("show");
+
+                }
+
+            }
+        );
+
+    },
+
+    {
+        threshold:.13
+    }
+
+);
+
+
+document
+.querySelectorAll(
+    ".reveal"
+)
+.forEach(
+    el =>
+        observer.observe(el)
+);
+
+
+/* ================= 3D CARD ================= */
+
+document
+.querySelectorAll(
+    ".card"
+)
+.forEach(
+    card=>{
+
+        card.addEventListener(
+            "pointermove",
+            e=>{
+
+                const r=
+                    card.getBoundingClientRect();
+
+
+                const x=
+                    (e.clientX-r.left)
+                    /
+                    r.width
+                    -.5;
+
+
+                const y=
+                    (e.clientY-r.top)
+                    /
+                    r.height
+                    -.5;
+
+
+                card.style.transform=
+                    `perspective(900px)
+                    rotateX(${y*-3}deg)
+                    rotateY(${x*3}deg)
+                    translateY(-3px)`;
+
+            }
+        );
+
+
+        card.addEventListener(
+            "pointerleave",
+            ()=>{
+                card.style.transform="";
+            }
+        );
+
+    }
+);
+
+
+/* ================= TOP BUTTON ================= */
+
+document
+.getElementById("topBtn")
+.onclick=()=>{
+
+    scrollTo({
+
+        top:0,
+
+        behavior:"smooth"
+
+    });
+
+};
+
+
+/* ================= YEAR ================= */
+
+document
+.getElementById("year")
+.textContent=
+new Date().getFullYear();
+
+
+/* ================= TOAST ================= */
+
+function showToast(message){
+
+    const toast=
+        document.getElementById(
+            "toast"
+        );
+
+
+    toast.textContent=
+        message;
+
+
+    toast.classList
+        .add("show");
+
+
+    clearTimeout(
+        window.toastTimer
+    );
+
+
+    window.toastTimer=
+        setTimeout(
+            ()=>
+                toast
+                .classList
+                .remove("show"),
+
+            1600
+        );
+
+}
+
+
+/* ================= CLICK RIPPLE ================= */
+
+document.addEventListener(
+    "click",
+    e=>{
+
+        const ripple=
+            document.createElement(
+                "span"
+            );
+
+
+        Object.assign(
+            ripple.style,
+            {
+
+                position:"fixed",
+
+                left:
+                    e.clientX+"px",
+
+                top:
+                    e.clientY+"px",
+
+                width:"5px",
+
+                height:"5px",
+
+                border:
+                    "1px solid #a78bfa",
+
+                borderRadius:"50%",
+
+                pointerEvents:"none",
+
+                zIndex:70
+
+            }
+        );
+
+
+        document.body
+        .appendChild(
+            ripple
+        );
+
+
+        const animation=
+            ripple.animate(
+
+                [
+
+                    {
+
+                        transform:
+                        "translate(-50%,-50%) scale(1)",
+
+                        opacity:1
+
+                    },
+
+                    {
+
+                        transform:
+                        "translate(-50%,-50%) scale(18)",
+
+                        opacity:0
+
+                    }
+
+                ],
+
+                {
+
+                    duration:650
+
+                }
+
+            );
+
+
+        animation.onfinish=
+            () =>
+                ripple.remove();
+
+    }
+);
+
+</script>
+
+</body>
+</html>
